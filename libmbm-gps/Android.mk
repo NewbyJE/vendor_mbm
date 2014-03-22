@@ -18,8 +18,9 @@ include $(CLEAR_VARS)
 # API 17, 18, and 19 not verified
 #
 API_ICS:= 14 15
-API_JB:= 16
-API_SUPPORTED:= $(API_ICS) $(API_JB)
+API_JB:= 16 17 18
+API_KK:= 19
+API_SUPPORTED:= $(API_ICS) $(API_JB) $(API_KK)
 
 # Check if supported
 ifeq "$(findstring $(PLATFORM_SDK_VERSION),$(API_SUPPORTED))" ""
@@ -30,6 +31,12 @@ endif
 ifneq "$(findstring $(PLATFORM_SDK_VERSION), $(API_ICS))" ""
   MBM_ICS := true
   $(warning MBM GPS: Ice Cream Sandwich is set: $(MBM_ICS))
+endif
+
+# If supported KitKat API
+ifneq "$(findstring $(PLATFORM_SDK_VERSION), $(API_KK))" ""
+  MBM_KK := true
+  $(warning MBM GPS: Kit Kat is set: $(MBM_KK))
 endif
 
 LOCAL_MODULE := gps.$(TARGET_DEVICE)
@@ -67,8 +74,12 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_CFLAGS := -Wall -Wextra
 #LOCAL_CFLAGS += -DLOG_NDEBUG=0
 #LOCAL_CFLAGS += -DSINGLE_SHOT
+
 ifdef MBM_ICS
 LOCAL_CFLAGS += -DMBM_ICS
+endif
+ifdef MBM_KK
+LOCAL_CFLAGS += -DMBM_KK
 endif
 
 LOCAL_PRELINK_MODULE := false
