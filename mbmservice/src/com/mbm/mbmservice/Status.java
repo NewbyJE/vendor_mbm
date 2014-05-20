@@ -9,8 +9,8 @@ import java.util.TimeZone;
 
 import android.net.NetworkInfo;
 import android.os.Handler;
-// Add line below for Android newer than JB
-// import android.telephony.TelephonyManager
+/* Android 4.3 */
+import android.telephony.TelephonyManager;
 
 import com.android.internal.telephony.Phone;
 import com.android.internal.telephony.PhoneFactory;
