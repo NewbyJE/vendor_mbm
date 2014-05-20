@@ -250,7 +250,7 @@ public class MbmServiceReceiver extends BroadcastReceiver {
                     1) == 1;
             currentStatus.setRoamingAllowed(roamingAllowed);
         } else if (intent.getAction().equals(Intent.ACTION_TIME_CHANGED)) {
-            currentStatus.setTime(currentStatus.getCurrentTime());
+//            currentStatus.setTime(currentStatus.getCurrentTime());
         }
     }
 }
