@@ -39,24 +39,11 @@
    and place that in /data/local.prop.
 */
 
-#ifdef MBM_ICS
-#define MBMLOGE(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_ERROR)) LOGE(__VA_ARGS__); }while(0)
-#define MBMLOGW(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_WARN)) LOGW(__VA_ARGS__); }while(0)
-#define MBMLOGI(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_INFO)) LOGI(__VA_ARGS__); }while(0)
-#define MBMLOGD(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_DEBUG)) LOGD(__VA_ARGS__); }while(0)
-#define MBMLOGV(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_VERBOSE)) LOGV(__VA_ARGS__); }while(0)
-#define ALOGW LOGW
-#define ALOGI LOGI
-#define ALOGD LOGD
-#define ALOGE LOGE
-#define ALOGV LOGV
-#else
-#define MBMLOGE(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_ERROR)) ALOGE(__VA_ARGS__); }while(0)
-#define MBMLOGW(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_WARN)) ALOGW(__VA_ARGS__); }while(0)
-#define MBMLOGI(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_INFO)) ALOGI(__VA_ARGS__); }while(0)
-#define MBMLOGD(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_DEBUG)) ALOGD(__VA_ARGS__); }while(0)
-#define MBMLOGV(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_VERBOSE)) ALOGV(__VA_ARGS__); }while(0)
-#endif /* MBM_ICS */
+#define MBMLOGE(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_ERROR)) RLOGE(__VA_ARGS__); }while(0)
+#define MBMLOGW(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_WARN)) RLOGW(__VA_ARGS__); }while(0)
+#define MBMLOGI(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_INFO)) RLOGI(__VA_ARGS__); }while(0)
+#define MBMLOGD(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_DEBUG)) RLOGD(__VA_ARGS__); }while(0)
+#define MBMLOGV(...) do { if ((NULL != context) && (context->loglevel <= ANDROID_LOG_VERBOSE)) RLOGV(__VA_ARGS__); }while(0)
 
 #define ENTER MBMLOGV("%s: enter", __FUNCTION__)
 #define EXIT MBMLOGV("%s: exit", __FUNCTION__)

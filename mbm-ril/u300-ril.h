@@ -29,14 +29,6 @@
         enqueueRILEventName(isPrio, callback, \
                      param, relativeTime, #callback)
 
-#ifdef MBM_ICS
-#define ALOGW LOGW
-#define ALOGI LOGI
-#define ALOGD LOGD
-#define ALOGE LOGE
-#define ALOGV LOGV
-#endif
-
 void getScreenStateLock(void);
 int getScreenState(void);
 void setScreenState(int screenState);

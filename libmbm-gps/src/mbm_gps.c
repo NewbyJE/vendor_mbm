@@ -1541,11 +1541,7 @@ static struct hw_module_methods_t mbm_gps_module_methods = {
     .open = mbm_open_gps
 };
 
-#ifdef MBM_ICS
-const struct hw_module_t HAL_MODULE_INFO_SYM = {
-#else
 struct hw_module_t HAL_MODULE_INFO_SYM = {
-#endif /* MBM_ICS */
     .tag = HARDWARE_MODULE_TAG,
     .version_major = 1,
     .version_minor = 0,

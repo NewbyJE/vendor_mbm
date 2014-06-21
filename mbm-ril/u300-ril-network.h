@@ -37,6 +37,7 @@ int getPreferredNetworkType(void);
 void requestSetNetworkSelectionAutomatic(void *data, size_t datalen, RIL_Token t);
 void requestSetNetworkSelectionManual(void *data, size_t datalen, RIL_Token t);
 void requestQueryAvailableNetworks(void *data, size_t datalen, RIL_Token t);
+void requestImsRegistrationState(void *data, size_t datalen, RIL_Token t);
 void requestSetPreferredNetworkType(void *data, size_t datalen, RIL_Token t);
 void requestGetPreferredNetworkType(void *data, size_t datalen, RIL_Token t);
 void requestEnterNetworkDepersonalization(void *data, size_t datalen, RIL_Token t);

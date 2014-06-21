@@ -2,7 +2,7 @@
     android:installLocation="internalOnly"
     package="com.mbm.mbmservice"
     android:versionCode="4"
-    android:versionName="4.0-beta"
+    android:versionName="4.4-beta"
     android:sharedUserId="android.uid.phone" >
 
     <uses-sdk android:minSdkVersion="9" />

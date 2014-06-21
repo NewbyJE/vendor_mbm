@@ -448,11 +448,9 @@ static const char *radioStateToString(RIL_RadioState radioState)
     case RADIO_STATE_NV_READY:
         state = "RADIO_STATE_NV_READY";
         break;
-#ifndef MBM_ICS
     case RADIO_STATE_ON:
         state = "RADIO_STATE_ON";
         break;
-#endif /* MBM_ICS */
     default:
         state = "RADIO_STATE_<> Unknown!";
         break;

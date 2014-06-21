@@ -1,48 +1,77 @@
+#########################################################################
 # Copyright (C) ST-Ericsson AB 2008-2014
 # Copyright 2006 The Android Open Source Project
 #
-# Based on reference-ril
-# Modified for ST-Ericsson U300 modems.
-# Author: Christian Bejram <christian.bejram@stericsson.com>
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# XXX using libutils for simulator build only...
+# http://www.apache.org/licenses/LICENSE-2.0
 #
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-# Android version based on API (PLATFORM_SDK_VERSION)
-#
+#########################################################################
+# Determine android version based on API (PLATFORM_SDK_VERSION)
 # API Level 14 Android 4.0 to 4.0.2 Ice Cream Sandwich
 # API Level 15 Android 4.0.3 to 4.0.4 Ice Cream Sandwich
 # API Level 16 Android 4.1 Jelly Bean
 # API Level 17 Android 4.2 Jelly Bean
 # API Level 18 Android 4.3 Jelly Bean
 # API Level 19 Android 4.4 KitKat
-# 
-# API 14, 15, and 16 supported
-# API 17, 18, and 19 not verified
-#
-API_ICS:= 14 15
-API_JB:= 16 17 18
-API_KK:= 19
-API_SUPPORTED:= $(API_ICS) $(API_JB) $(API_KK)
+#########################################################################
 
+API_ICS:= 14 15
+API_JB:= 16
+API_KK:= 19
+#
+# Only KitKat (19) supported in this version
+#
+API_SUPPORTED:= $(API_KK)
+#
 # Check if supported
 ifeq "$(findstring $(PLATFORM_SDK_VERSION),$(API_SUPPORTED))" ""
-  $(error -- Unsupported Android version; $(PLATFORM_SDK_VERSION))
+  $(error MBM: Unsupported Android version; $(PLATFORM_SDK_VERSION))
 endif
 
 # If supported Ice Cream Sandwich API
 ifneq "$(findstring $(PLATFORM_SDK_VERSION), $(API_ICS))" ""
   MBM_ICS := true
-  $(warning MBM RIL: Ice Cream Sandwich is set: $(MBM_ICS))
+  LOCAL_CFLAGS += -DMBM_ICS
+  $(warning MBM: Ice Cream Sandwich is set: $(MBM_ICS))
+endif
+
+# If supported Jelly Bean API
+ifneq "$(findstring $(PLATFORM_SDK_VERSION), $(API_JB))" ""
+  MBM_JB := true
+  LOCAL_CFLAGS += -DMBM_JB
+  $(warning MBM: Jelly Bean is set: $(MBM_JB))
 endif
 
 # If supported KitKat API
 ifneq "$(findstring $(PLATFORM_SDK_VERSION), $(API_KK))" ""
   MBM_KK := true
-  $(warning MBM GPS: Kit Kat is set: $(MBM_KK))
+  LOCAL_CFLAGS += -DMBM_KK
+  $(warning MBM: Kit Kat is set: $(MBM_KK))
 endif
+
+#########################################################################
+# Build MBM RIL implementation: libmbm-ril
+# Based on reference-ril
+# Modified for ST-Ericsson U300 modems.
+# Author: Christian Bejram <christian.bejram@stericsson.com>
+#########################################################################
+
+ifeq ($(strip $(BOARD_USES_MBM_RIL)),true)
+
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+
+LOCAL_MODULE:= libmbm-ril
+LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES:= \
     u300-ril.c \
@@ -88,8 +117,6 @@ LOCAL_C_INCLUDES := $(KERNEL_HEADERS) $(TOP)/hardware/ril/libril/
 # Disable prelink, or add to build/core/prelink-linux-arm.map
 LOCAL_PRELINK_MODULE := false
 
-LOCAL_MODULE_TAGS := optional
-
 # Build shared library
 LOCAL_SHARED_LIBRARIES += \
     libcutils libutils
@@ -97,13 +124,6 @@ LOCAL_LDLIBS += -lpthread
 LOCAL_LDLIBS += -lrt
 LOCAL_CFLAGS += -DRIL_SHLIB
 LOCAL_CFLAGS += -Wall
-
-ifdef MBM_ICS
-LOCAL_CFLAGS += -DMBM_ICS
-endif
-ifdef MBM_KK
-LOCAL_CFLAGS += -DMBM_KK
-endif
-
-LOCAL_MODULE:= libmbm-ril
 include $(BUILD_SHARED_LIBRARY)
+
+endif

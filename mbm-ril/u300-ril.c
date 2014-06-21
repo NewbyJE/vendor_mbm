@@ -57,7 +57,7 @@
 #define LOG_TAG "RIL"
 #include <utils/Log.h>
 
-#define RIL_VERSION_STRING "MBM u300-ril 4.0-beta"
+#define RIL_VERSION_STRING "MBM u300-ril 4.4-beta"
 
 #define MAX_AT_RESPONSE 0x1000
 
@@ -446,11 +446,8 @@ static void processRequest(int request, void *data, size_t datalen, RIL_Token t)
              request == RIL_REQUEST_ENTER_SIM_PUK ||
              request == RIL_REQUEST_ENTER_SIM_PIN2 ||
              request == RIL_REQUEST_ENTER_SIM_PUK2 ||
-#ifdef MBM_KK
              request == RIL_REQUEST_ENTER_DEPERSONALIZATION_CODE ||
-#else
              request == RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION ||
-#endif /* MBM_KK */ 
              request == RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION ||
              request == RIL_REQUEST_GET_SIM_STATUS ||
              request == RIL_REQUEST_RADIO_POWER ||
@@ -555,11 +552,7 @@ static void processRequest(int request, void *data, size_t datalen, RIL_Token t)
             break;
 
         /* Network Requests */
-#ifdef MBM_KK
         case RIL_REQUEST_ENTER_DEPERSONALIZATION_CODE:
-#else
-        case RIL_REQUEST_ENTER_NETWORK_DEPERSONALIZATION:
-#endif /* MBM_KK */ 
             requestEnterSimPin(data, datalen, t, request);
             break;
         case RIL_REQUEST_QUERY_NETWORK_SELECTION_MODE:

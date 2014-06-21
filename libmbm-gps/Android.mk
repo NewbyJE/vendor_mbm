@@ -1,43 +1,27 @@
-# Use hardware GPS implementation if available.
+#########################################################################
+# Copyright (C) ST-Ericsson AB 2008-2014
+# Copyright 2006 The Android Open Source Project
 #
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#########################################################################
+# Build MBM GPS implementation: gps.$(TARGET_DEVICE)
+#########################################################################
+
 ifeq ($(strip $(BOARD_USES_MBM_GPS)),true)
 
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
-
-# Android version based on API (PLATFORM_SDK_VERSION)
-#
-# API Level 14 Android 4.0 to 4.0.2 Ice Cream Sandwich
-# API Level 15 Android 4.0.3 to 4.0.4 Ice Cream Sandwich
-# API Level 16 Android 4.1 Jelly Bean
-# API Level 17 Android 4.2 Jelly Bean
-# API Level 18 Android 4.3 Jelly Bean
-# API Level 19 Android 4.4 KitKat
-# 
-# API 14, 15, and 16 supported
-# API 17, 18, and 19 not verified
-#
-API_ICS:= 14 15
-API_JB:= 16 17 18
-API_KK:= 19
-API_SUPPORTED:= $(API_ICS) $(API_JB) $(API_KK)
-
-# Check if supported
-ifeq "$(findstring $(PLATFORM_SDK_VERSION),$(API_SUPPORTED))" ""
-  $(error -- Unsupported Android version; $(PLATFORM_SDK_VERSION))
-endif
-
-# If supported Ice Cream Sandwich API
-ifneq "$(findstring $(PLATFORM_SDK_VERSION), $(API_ICS))" ""
-  MBM_ICS := true
-  $(warning MBM GPS: Ice Cream Sandwich is set: $(MBM_ICS))
-endif
-
-# If supported KitKat API
-ifneq "$(findstring $(PLATFORM_SDK_VERSION), $(API_KK))" ""
-  MBM_KK := true
-  $(warning MBM GPS: Kit Kat is set: $(MBM_KK))
-endif
 
 LOCAL_MODULE := gps.$(TARGET_DEVICE)
 LOCAL_MODULE_TAGS := optional
@@ -74,13 +58,6 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_CFLAGS := -Wall -Wextra
 #LOCAL_CFLAGS += -DLOG_NDEBUG=0
 #LOCAL_CFLAGS += -DSINGLE_SHOT
-
-ifdef MBM_ICS
-LOCAL_CFLAGS += -DMBM_ICS
-endif
-ifdef MBM_KK
-LOCAL_CFLAGS += -DMBM_KK
-endif
 
 LOCAL_PRELINK_MODULE := false
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw

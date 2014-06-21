@@ -37,7 +37,6 @@
  * This design might not be ideal, but considering the alternatives,
  * it's good enough.
  */
-
 static void *dummyDispatch(void *data, size_t datalen);
  
 #define dispatchCdmaSms dummyDispatch
@@ -47,11 +46,13 @@ static void *dummyDispatch(void *data, size_t datalen);
 #define dispatchCdmaSubscriptionSource dummyDispatch
 #define dispatchVoiceRadioTech dummyDispatch
 /* Android 4.3 new functions */
-#define dispatchDepersonalization dummyDispatch
 #define dispatchImsSms dummyDispatch
 #define dispatchUiccSubscripton dummyDispatch
+#define dispatchDepersonalization dummyDispatch
 /* Android 4.4 new functions */
 #define dispatchSetInitialAttachApn dummyDispatch
+#define dispatchImsCdmaSms dummyDispatch
+#define dispatchImsGsmSms dummyDispatch
 
 static void *dispatchCallForward(void *data, size_t datalen);
 static void *dispatchDial(void *data, size_t datalen);
@@ -89,7 +90,7 @@ static void dummyResponse(void);
 /* Android 4.3 new functions */
 #define responseCellInfoList dummyResponse
 #define responseGetDataCallProfile dummyResponse
-#define responseUiccSubscription dummyResponse
+#define responseSSData dummyResponse
 
 /*
 should be looked into how dispatchDataCall and others really should be handled,
