@@ -9,11 +9,11 @@ import java.util.TimeZone;
 
 import android.net.NetworkInfo;
 import android.os.Handler;
-/* Android 4.3 */
-import android.telephony.TelephonyManager;
+/* Add line below for Android API Level 17 and 18 */
+//import android.telephony.TelephonyManager;
 
-// import com.android.internal.telephony.Phone;
-// import com.android.internal.telephony.PhoneFactory;
+import com.android.internal.telephony.Phone;
+import com.android.internal.telephony.PhoneFactory;
 
 public class Status {
     private static final String TAG = "MBM_GPS_SERVICE";
@@ -241,13 +241,13 @@ public class Status {
         return time;
     }
 
-//    public void setTime(String time) {
-//        this.time = time;
-//
-//        Handler handler = new Handler();
-//        String strings[] = new String[1];
-//        strings[0] = "AT+CCLK=\"" + time + "\"\r\n";
-//        Phone phone = PhoneFactory.getDefaultPhone();
-//        phone.invokeOemRilRequestStrings(strings, handler.obtainMessage(EVENT_OEM_RIL_MESSAGE));
-//    }
+    public void setTime(String time) {
+        this.time = time;
+
+        Handler handler = new Handler();
+        String strings[] = new String[1];
+        strings[0] = "AT+CCLK=\"" + time + "\"\r\n";
+        Phone phone = PhoneFactory.getDefaultPhone();
+        phone.invokeOemRilRequestStrings(strings, handler.obtainMessage(EVENT_OEM_RIL_MESSAGE));
+    }
 }
